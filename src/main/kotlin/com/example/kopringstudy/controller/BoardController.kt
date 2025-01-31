@@ -123,5 +123,14 @@ class BoardController(
             ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create ZIP: ${e.message}")
         }
     }
+}
 
+@RestController
+@RequestMapping("/healthcheck")
+class HealthCheckController {
+
+    @GetMapping
+    fun healthCheck(): ResponseEntity<String> {
+        return ResponseEntity.ok("OK")
+    }
 }
