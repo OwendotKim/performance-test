@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
 import java.nio.file.Path
-
+import java.util.stream.Collectors
 import java.io.FileOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -99,7 +99,8 @@ class BoardController(
             // 압축할 파일 리스트 가져오기 (기존 ZIP 제외)
             val filesToZip = Files.walk(uploadsDir)
                 .filter { Files.isRegularFile(it) && !it.toString().endsWith(".zip") }
-                .toList()
+                .collect(Collectors.toList()) // Stream을 List로 변환
+
 
             if (filesToZip.isEmpty()) {
                 return ResponseEntity.ok("No new files to zip.")
